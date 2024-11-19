@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speedy Bite restaurant</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"
+    rel="stylesheet"/>
+    <link rel="icon" href="img/log.png" type="image/x-icon">
+    
+<style>
+  
+</style>
+</head>
+<body>
+    <header id="home">
+        <nav class="navbar">
+            <div class="logo">
+                <img src="img/log.png" alt="">
+                <span>Speedy Bite</span>
+            </div>
+    
+            <ul class="nav_items" id="nav_links">
+                <div class="item">
+                    <li><a href="#home">HOME</a></li>
+                    <li><a href="#services">SERVICES</a></li>
+                    <li><a href="#about">ABOUT</a></li>
+                    <li><a href="#menu">MENU</a></li>
+                    <ul class="nav_items" id="nav_links">
+                        <li><a href="javascript:void(0)" id="cart-btn"><i class="ri-shopping-cart-line"></i> <span id="cart-count">0</span></a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                   <a href="#menu"><button class="btn">explore menu</button></a> 
+                </div>
+            </ul>
+    
+            <div class="nav_menu" id="menu_btn">
+                <i class="ri-menu-line"></i>
+            </div>
+        </nav>
+        <section class="main">
+            <h2 class="heading_1 animate__animated animate__fadeInUp">اهلاً بكم <br>في مطعمنا للوجبات السريعة</h2>
+            <h1 class="heading animate__animated animate__fadeInUp">أستمتع<br>بأطيب وجبة</h1>
+            <div class="main_btn">
+                <button class="btn btn1 animate__animated animate__fadeInUp">
+                    <a href="#menu" > أنتقل لأختيار وجبتك</a>
+                </button>
+            </div>
+        </section>
+        
+    </header>
+
+    <!-- ___________services -->
+     <section class="sec services" id="services">
+
+        <div class="head">
+            <h3 class="heading_1">خدماتنا</h3>
+            <h1 class="heading">أطيب طعم <span>بأفضل جودة</span> <br>أطلب الآن</h1>
+        </div>
+
+        <div class="boxes">
+
+            <div class="box">
+                <img src="img/pic1.png" alt="">
+                <h4>أطلب بسهولة</h4>
+                <p>أختر طلبك من قائمة الطعام المتنوعة</p>
+            </div>
+            <div class="box">
+                <img src="img/pic2.png" alt="">
+                <h4>توصيل سريع</h4>
+                <p>الدقة في المواعيد أثناء توصيل طلبك</p>
+            </div>
+            <div class="box">
+                <img src="img/pic3.png" alt="">
+                <h4>أفضل جودة</h4>
+                <p>نستخدم في أدواتنا ومكوناتنا أفضل المواد لأعطائكم أفضل طعم</p>
+            </div>
+        </div>
+     </section>
+
+     <section class="sec menu" id="menu">
+        <center> <h1>MENU</h1></center>
+        <div class="menu-items">
+            <!-- وجبة 1 -->
+            <div class="menu-item" id="item-1">
+                <img src="img/dish1.jpeg" alt="شاورما">
+                <h3>شاورما</h3>
+                <p>40000 sp</p>
+                <button class="add-to-cart" data-id="1" data-name="شاورما" data-price="40000">Add to Cart</button>
+            </div>
+            <!-- وجبة 2 -->
+            <div class="menu-item" id="item-2">
+                <img src="img/dish2.jpeg" alt="برغر دجاج">
+                <h3>برغر دجاج</h3>
+                <p>50000 sp</p>
+                <button class="add-to-cart" data-id="2" data-name="برغر دجاج" data-price="50000">Add to Cart</button>
+            </div>
+            <!-- وجبة 3 -->
+            <div class="menu-item" id="item-3">
+                <img src="img/dish3.jpeg" alt="لحوم مشوية">
+                <h3>لحوم مشوية</h3>
+                <p>150000 sp</p>
+                <button class="add-to-cart" data-id="3" data-name="لحوم مشوية" data-price="150000">Add to Cart</button>
+            </div>
+            <!-- وجبة 4 -->
+            <div class="menu-item" id="item-4">
+                <img src="img/dish4.jpeg" alt="بيتزا">
+                <h3>بيتزا</h3>
+                <p>60000 sp</p>
+                <button class="add-to-cart" data-id="4" data-name="بيتزا"data-price="60000">Add to Cart</button>
+            </div>
+            <!-- وجبة 5 -->
+            <div class="menu-item" id="item-5">
+                <img src="img/dish5.jpeg" alt="بيتزا سلامي">
+                <h3>بيتزا سلامي</h3>
+                <p>60000 sp</p>
+                <button class="add-to-cart" data-id="5" data-name="بيتزا سلامي" data-price="60000">Add to Cart</button>
+            </div>
+            <!-- وجبة 6 -->
+            <div class="menu-item" id="item-6">
+                <img src="img/dish6.jpeg" alt="برغر لحم">
+                <h3>برغر لحم</h3>
+                <p>65000 sp</p>
+                <button class="add-to-cart" data-id="6" data-name="برغر لحم" data-price="65000">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+<!-- سلة المشتريات المنبثقة -->
+<div id="cart-popup" class="cart-popup">
+    <div class="cart-content">
+        <span id="cart-close" class="cart-close">&times;</span>
+        <h2>سلة المشتريات</h2>
+        <ul id="cart-items-list"></ul>
+        <div id="cart-total">
+            <p>Total: sp <span id="total-price">0.00</span></p>
+            <!-- تعديل رابط إتمام الطلب ليحول المستخدم إلى صفحة checkout.html -->
+            <a href="checkout.html"><button id="checkout-btn">إتمام الطلب</button></a>
+        </div>
+    </div>
+</div>
+
+
+     <!-- _________about -->
+      <section class="sec about" id="about">
+
+        <div class="head about_heading">
+            <h3 class="heading_1">About us</h3>
+            <br>
+            <p class="para">نحن مطعم اللقمة السريعة <br>Speedy Bite <br>نقدم وجباتنا منذ 4 سنوات ونحن متميزون بتقديم الوجبات السريعة بمختلف أنواعها الشرقي والغربي</p>
+
+            <h1 class="heading">ماذا قالو <span>عملائنا وزائروا مطعمنا </span> <br>عنا</h1>
+        </div>
+
+        <div class="about_box">
+
+            <div class="box1">
+                <img src="img/pic4.png" alt="">
+                <div class="box1_text">
+                    <h1>Hussam</h1>
+                    <p class="para1"> حصلت على أفضل بيتزا في حياتي أنه أفضل مطعم يقدم البيتزا</p>
+                </div>
+            </div>
+            <div class="box1">
+                <img src="img/pic5.png" alt="">
+                <div class="box1_text">
+                    <h1>Mayar</h1>
+                    <p class="para1">قمت بالطلب منه أكثر من مرة وفي كل مرة يصل في الوقت دون تأخير ويقدم جودة وطعم هائل</p>
+                </div>
+            </div>
+            <div class="box1">
+                <img src="img/pic6.png" alt="">
+                <div class="box1_text">
+                    <h1>Nisren</h1>
+                    <p class="para1">لديه وجبات متنوعة وشهية أفضل الشاورما على طريقتهم الخاصة فهي ألذ ما تذوقت</p>
+                </div>
+            </div>
+            <div class="box1">
+                <img src="img/pic6.png" alt="">
+                <div class="box1_text">
+                    <h1>Nagam</h1>
+                    <p class="para1">هذا المطعم لديه أفضل  الأطعمة والوجبات السريعة وهو مناسب في جميع الأوقات </p>
+                </div>
+            </div>
+            
+        </div>
+      
+       <!-- _________footer -->
+        <footer>
+            <div class="sec footer_container">
+
+                <div class="footer_col">
+                    <div class="footer_logo logo">
+                        <img src="img/log.png" alt="">
+                        <span>Speedy Bite</span>
+                    </div>
+                    <p class="footer_text">مطعمنا متوفر يومياً من الساعة 9 صباحاً حتى الساعة 12 بعد منتصف الليل</p>
+                    <ul class="footer_socials">
+                        <li><a href="http://www.instagram.com"><i class="ri-instagram-fill"></i></a></li>
+                        <li><a href="http://www.facebook"><i class="ri-facebook-fill"></i></a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer_col">
+                    <h4>about</h4>
+                    <ul class="footer_links">
+                        <li><a href="#">about us</a></li>
+                        <li><a href="#">Hussam_189469</a></li>
+                        <li><a href="#">Nisren_189790</a></li>
+                        <li><a href="#">Mayar_</a></li>
+                        <li><a href="#">Nagam</a></li>
+                        <li><a href="#">Mays</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer_col">
+                    <h4>company</h4>
+                    <ul class="footer_links">
+                        <li><a href="#">my Speedy Bite</a></li>
+                        <li><a href="tel:0116123456">هاتف</a></li>
+                        <li><a href="#">الموقع الالكتروني</a></li>
+                        <li><a href="tel:0912345678">موبايل</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer_col">
+                    <h4>support</h4>
+                    <ul class="footer_links">
+                        <li><a href="mailto:speedy_bite@support.com">account</a></li>
+                        <li><a href="#">support center</a></li>
+                        <li><a href="#">feedback</a></li>
+                        <li><a href="tel:0116123456">contact us</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            
+        </footer>
+        <span class="top" id="to-top"><i class="ri-arrow-up-circle-line"></i></span>
+    <script src="index.js" defer>
+    
+    </script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إتمام الطلب</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="img/log.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 50vh; /* استخدام نصف الشاشة للارتفاع */
+            width: 100%;  /* عرض كامل */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <img src="img/log.png" alt="">
+                <span>Speedy Bite</span>
+            </div>
+        </nav>
+        <section class="checkout-section">
+            <h1>إتمام الطلب</h1>
+            <form id="checkout-form">
+                <label for="name">الاسم:</label>
+                <input type="text" id="name" name="name" required>
+    
+                <label for="phone">رقم التواصل:</label>
+                <input type="tel" id="phone" name="phone" required>
+    
+                <label for="address">العنوان:</label>
+                <textarea id="address" name="address" required></textarea>
+    
+                <label for="region">المنطقة:</label>
+                <select id="region" name="region" required>
+                    <option value="region1">المنطقة 1</option>
+                    <option value="region2">المنطقة 2</option>
+                    <option value="region3">المنطقة 3</option>
+                    <option value="region4">المنطقة 4</option>
+                    <option value="region5">المنطقة 5</option>
+                </select>
+    
+                <button type="submit">إتمام الطلب</button>
+                <button type="button" id="back-to-cart">العودة إلى السلة</button>
+            </form>
+        </section>
+    </header>
+
+    <div id="map"></div> <!-- العنصر الذي سيظهر فيه الخريطة -->
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <span>Speedy Bite</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <script>
+        // إنشاء الخريطة وضبط المركز على دمشق
+        var map = L.map('map').setView([33.5103, 36.2913], 13); // إحداثيات منطقة دمشق
+
+        // إضافة طبقة من الخرائط
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // المركز الأساسي للمطعم
+        const center = [33.5103, 36.2913];
+
+        // نصف القطر لتوزيع المناطق حول المركز
+        const radius = 0.02;  // 0.01 درجة تقابل حوالي 1.11 كم في عرض وارتفاع الدائرة حول النقطة
+
+        // دالة لحساب إحداثيات منطقة موزعة حول المركز على شكل دائرة
+        function getRegionCoordinates(center, radius, angle) {
+            const lat = center[0] + radius * Math.cos(angle * Math.PI / 180);
+            const lng = center[1] + radius * Math.sin(angle * Math.PI / 180);
+            return [lat, lng];
+        }
+
+        // تعريف منطقتين أولويتين في مكان ثابت
+        const region1 = [33.5200, 36.2900]; // المنطقة العليا
+        const region2 = [33.5000, 36.2900]; // المنطقة السفلى
+
+        // إضافة أول منطقتين على الخريطة
+        L.marker(region1).addTo(map).bindPopup("المنطقة 1");
+        L.marker(region2).addTo(map).bindPopup("المنطقة 2");
+
+        // توزيع 3 مناطق أخرى حول المنطقة 1 و2
+        const regions = [region1, region2];
+        const numRegions = 3;  // عدد المناطق الأخرى
+        const angleStep = 360 / (numRegions + 2);  // زاوية الفرق بين كل منطقة
+
+        // توزيع المناطق المتبقية حول المركز
+        for (let i = 0; i < numRegions; i++) {
+            const angle = (i + 1) * angleStep;  // حساب الزاوية لكل منطقة
+            const regionCoordinates = getRegionCoordinates(center, radius, angle);
+            regions.push(regionCoordinates);
+        }
+
+        // إضافة علامات لبقية المناطق
+        regions.forEach((region, index) => {
+            L.marker(region).addTo(map).bindPopup(`المنطقة ${index + 1}`);
+        });
+
+        // إضافة علامة للمطعم على المركز الأساسي
+        const restaurantIcon = L.icon({
+            iconUrl: 'img/log.png', // يمكنك تخصيص الأيقونة هنا
+            iconSize: [32, 32],  // حجم الأيقونة
+            iconAnchor: [16, 32],  // نقطة التثبيت في الأسفل
+            popupAnchor: [0, -32]  // تعديل ظهور البوب أب
+        });
+
+        // إضافة علامة للمطعم
+        L.marker(center, {icon: restaurantIcon}).addTo(map).bindPopup("مكان المطعم");
+
+        // وظيفة لتحريك المندوب إلى المنطقة المختارة
+        function simulateDelivery(regionIndex) {
+            const destination = regions[regionIndex];
+            const path = [center, destination];
+
+            // رسم المسار بين المطعم والمنطقة
+            const polyline = L.polyline(path, {color: 'blue'}).addTo(map);
+
+            // تحريك المندوب على طول المسار
+            let i = 0;
+            const marker = L.marker(center).addTo(map);
+            const interval = setInterval(() => {
+                if (i < path.length) {
+                    marker.setLatLng(path[i]);
+                    i++;
+                } else {
+                    clearInterval(interval);
+                    alert("تم التوصيل بنجاح!");
+                }
+            }, 1000);  // التحديث كل ثانية
+        }
+
+        // عند تقديم الطلب، قم بمحاكاة التوصيل فقط بعد تعبئة الحقول
+        document.getElementById('checkout-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // جمع البيانات المدخلة
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const region = document.getElementById('region').value;
+            const selectedRegionIndex = parseInt(region.replace("region", "")) - 1;  // تحويل القيمة المختارة إلى رقم المنطقة
+
+            // التأكد من تعبئة الحقول
+            if (name && phone && address && region) {
+                alert(`تم إرسال البيانات: 
+                        الاسم: ${name}
+                        رقم التواصل: ${phone}
+                        العنوان: ${address}
+                        المنطقة: ${region}`);
+
+                // بعد إتمام الطلب، يتم تحريك المندوب إلى المنطقة المحددة
+                simulateDelivery(selectedRegionIndex);
+            } else {
+                alert("يرجى تعبئة جميع الحقول.");
+            }
+        });
+
+        // عند العودة إلى السلة
+        document.getElementById('back-to-cart').addEventListener('click', function() {
+            // العودة إلى صفحة السلة (index.html) دون تفريغ السلة
+            window.location.href = "index.html";
+        });
+    </script>
+</body>
+</html>
