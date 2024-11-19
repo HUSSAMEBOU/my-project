@@ -99,8 +99,8 @@ header{
 }
 .main{
     width: 50%;
-    left: 30%;
-    top: 45%;
+    left: 35%;
+    top: 55%;
     transform: translate(-50%,-50%);
     position: absolute;
     color: #fff;
